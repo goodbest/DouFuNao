@@ -15,6 +15,38 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="../js/jquery.min.js"></script>
+  <script>
+	  $(document).ready(function(){
+		  $.getJSON('http://count.io/vb/doufunao/').done(function (data){
+			  var xianCnt;
+			  var tianCnt;
+			  if(data['counts'][0]['item']=='tian'){
+				  tianCnt=data['counts'][0]['count'];
+				  xianCnt=data['counts'][1]['count'];
+			  }
+			  else{
+				  tianCnt=data['counts'][1]['count'];
+				  xianCnt=data['counts'][0]['count'];
+			  }
+			    
+			  $("#xianBtn").append(' 现有'+xianCnt +'人次');
+		  });  
+  	});
+	
+	  function increaseCnt(item){
+		  if(item=='xian'){
+		  	$.post('http://count.io/vb/doufunao/xian+').done(function (data){
+				location.reload();
+			});
+		  }
+		  else{
+  		  	$.post('http://count.io/vb/doufunao/tian+').done(function (data){
+  				location.reload();
+  			});
+		  }
+	  };
+  </script>
 </head>
   
   <body>
@@ -22,7 +54,7 @@
 		  <div class="jumbotron">
 		  <h1>我是咸豆腐脑党</h1>
 		  <p class="lead">豆腐脑本来就应该是咸的！我喂自己袋盐</p>
-		  <p><a class="btn btn-lg btn-success" href="#" role="button">我就是我</a></p>
+		  <p><a class="btn btn-lg btn-success" href="#" onclick="increaseCnt('xian');" id="xianBtn" role="button">点我计数</a></p>
 		  </div>
 	  </div>
 	  
