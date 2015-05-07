@@ -20,32 +20,19 @@
   <script src="../js/common.js"></script>
   <script>  
   $(document).ready(function(){
-      var now = Date.now();
-      var appKeyHash = sha1(appID+"UZ"+appKey+"UZ"+now)+"."+now
       $.ajax({
-        "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+        "url": "https://doufunao.herokuapp.com/",
         "method": "POST",
         "cache": false,
-        "headers": {
-          "X-APICloud-AppId": appID,
-          "X-APICloud-AppKey": appKeyHash
-        },
         "data": {
-          "$inc": {
-            "xianPV": 1
-          },
-          "_method": "PUT"
+            "item":"xianPV"
         }
       });
         
       $.ajax({
-        "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+        "url": "https://doufunao.herokuapp.com/",
         "method": "GET",
-        "cache": false,
-        "headers": {
-          "X-APICloud-AppId": appID,
-          "X-APICloud-AppKey": appKeyHash
-        }
+        "cache": false
       }).success(function (cnt){
 		  $("#tianBtn").append(' \<small\>现'+cnt['tian'] +'人次\</small\>');
 		  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');

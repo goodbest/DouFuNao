@@ -5,42 +5,24 @@ appKey="9CCB020E-F8D5-480E-4715-BA4371FA38E3";
 
 $(document).ready(function(){
     $("#tianBtn").click(function(){
-        var now = Date.now();
-        var appKeyHash = sha1(appID+"UZ"+appKey+"UZ"+now)+"."+now
         $.ajax({
-          "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+          "url": "https://doufunao.herokuapp.com/",
           "method": "POST",
           "cache": false,
-          "headers": {
-            "X-APICloud-AppId": appID,
-            "X-APICloud-AppKey": appKeyHash
-          },
           "data": {
-            "$inc": {
-              "tian": 1
-            },
-            "_method": "PUT"
+              "item":"tian"
           }
         }).success(function (data){
     	  location.reload();
       });
     });
     $("#xianBtn").click(function(){
-        var now = Date.now();
-        var appKeyHash = sha1(appID+"UZ"+appKey+"UZ"+now)+"."+now
         $.ajax({
-          "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+          "url": "https://doufunao.herokuapp.com/",
           "method": "POST",
           "cache": false,
-          "headers": {
-            "X-APICloud-AppId": appID,
-            "X-APICloud-AppKey": appKeyHash
-          },
           "data": {
-            "$inc": {
-              "xian": 1
-            },
-            "_method": "PUT"
+              "item":"xian"
           }
         }).success(function (data){
     	  location.reload();
