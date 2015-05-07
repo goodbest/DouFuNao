@@ -17,7 +17,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/sha1.min.js"></script>
-  
+  <script src="js/common.js"></script>
   <script>
   $(document).ready(function(){
       var now = Date.now();
@@ -47,8 +47,8 @@
           "X-APICloud-AppKey": appKeyHash
         }
       }).success(function (cnt){
-		  $("#tianBtn").append(' \<small\>现'+cnt['tian'] +'人次\</small\>');
-		  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
+		  $("#tianBtni").append(' \<small\>现'+cnt['tian'] +'人次\</small\>');
+		  $("#xianBtni").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
 		  $("#indexPV").append(' '+cnt['indexPV']);
 		  $("#sitePV").append(' '+(cnt['indexPV']+cnt['tianPV']+cnt['xianPV']));
       });
@@ -61,8 +61,8 @@
 		  <div class="jumbotron">
 		  <h1>我是?豆腐脑党</h1>
 		  <p class="lead">豆腐脑应该是甜的还是咸的？做出你的选择！<br/>（排名按拼音序）</p>
-		  <p><a class="btn btn-lg btn-success" href="tian/" id="tianBtn" role="button">甜豆腐脑党</a></p>
-		  <p><a class="btn btn-lg btn-success" href="xian/" id="xianBtn" role="button">咸豆腐脑党</a></p>
+		  <p><a class="btn btn-lg btn-success" href="tian/" id="tianBtni" role="button">甜豆腐脑党</a></p>
+		  <p><a class="btn btn-lg btn-success" href="xian/" id="xianBtni" role="button">咸豆腐脑党</a></p>
 		  </div>
 		  
 		  <footer class="footer" align="center">
