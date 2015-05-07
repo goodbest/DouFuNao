@@ -16,28 +16,45 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="../js/jquery.min.js"></script>
+  <script src="../js/sha1.min.js"></script>
+  <script src="../js/common.js"></script>
   <script>
-	  $(document).ready(function(){
-		  $.post('http://count.io/vb/doufunao/xianPV+');
-		  $.post('http://count.io/vb/doufunao/sitePV+');
-		  
-		  $.getJSON('http://count.io/vb/doufunao/').done(function (data){
-			  var cnt={};			  
-			  for (i = 0; i < data['counts'].length; i++){
-				  cnt[data['counts'][i]['item']]=data['counts'][i]['count']
-			  };
-			  
-			  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
-			  $("#xianPV").append(' '+cnt['xianPV']);
-			  $("#sitePV").append(' '+cnt['sitePV']); 
-  		  });
-		  
-		  $("#xianBtn").click(function(){
-			  $.post('http://count.io/vb/doufunao/xian+').done(function (data){
-				  location.reload();
-			  });
-		  });	
-	  });
+  
+  $(document).ready(function(){
+      var now = Date.now();
+      var appKeyHash = sha1(appID+"UZ"+appKey+"UZ"+now)+"."+now
+      $.ajax({
+        "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+        "method": "POST",
+        "cache": false,
+        "headers": {
+          "X-APICloud-AppId": appID,
+          "X-APICloud-AppKey": appKeyHash
+        },
+        "data": {
+          "$inc": {
+            "xianPV": 1
+          },
+          "_method": "PUT"
+        }
+      });
+        
+      $.ajax({
+        "url": "https://d.apicloud.com/mcm/api/counts/doufunao",
+        "method": "GET",
+        "cache": false,
+        "headers": {
+          "X-APICloud-AppId": appID,
+          "X-APICloud-AppKey": appKeyHash
+        }
+      }).success(function (cnt){
+		  $("#tianBtn").append(' \<small\>现'+cnt['tian'] +'人次\</small\>');
+		  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
+		  $("#xianPV").append(' '+cnt['xianPV']);
+		  $("#sitePV").append(' '+(cnt['indexPV']+cnt['tianPV']+cnt['xianPV']));
+      });
+
+  });
   </script>
 </head>
   
