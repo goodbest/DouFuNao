@@ -18,34 +18,26 @@
   <script src="../js/jquery.min.js"></script>
   <script>
 	  $(document).ready(function(){
+		  $.post('http://count.io/vb/doufunao/xianPV+');
+		  $.post('http://count.io/vb/doufunao/sitePV+');
+		  
 		  $.getJSON('http://count.io/vb/doufunao/').done(function (data){
-			  var xianCnt;
-			  var tianCnt;
-			  if(data['counts'][0]['item']=='tian'){
-				  tianCnt=data['counts'][0]['count'];
-				  xianCnt=data['counts'][1]['count'];
-			  }
-			  else{
-				  tianCnt=data['counts'][1]['count'];
-				  xianCnt=data['counts'][0]['count'];
-			  }
-			    
-			  $("#xianBtn").append(' 现有'+xianCnt +'人次');
-		  });  
-  	});
-	
-	  function increaseCnt(item){
-		  if(item=='xian'){
-		  	$.post('http://count.io/vb/doufunao/xian+').done(function (data){
-				location.reload();
-			});
-		  }
-		  else{
-  		  	$.post('http://count.io/vb/doufunao/tian+').done(function (data){
-  				location.reload();
-  			});
-		  }
-	  };
+			  var cnt={};			  
+			  for (i = 0; i < data['counts'].length; i++){
+				  cnt[data['counts'][i]['item']]=data['counts'][i]['count']
+			  };
+			  
+			  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
+			  $("#xianPV").append(' '+cnt['xianPV']);
+			  $("#sitePV").append(' '+cnt['sitePV']); 
+  		  });
+		  
+		  $("#xianBtn").click(function(){
+			  $.post('http://count.io/vb/doufunao/xian+').done(function (data){
+				  location.reload();
+			  });
+		  });	
+	  });
   </script>
 </head>
   
@@ -54,10 +46,19 @@
 		  <div class="jumbotron">
 		  <h1>我是咸豆腐脑党</h1>
 		  <p class="lead">豆腐脑本来就应该是咸的！我喂自己袋盐</p>
-		  <p><a class="btn btn-lg btn-success" href="#" onclick="increaseCnt('xian');" id="xianBtn" role="button">点我计数</a></p>
+		  <p><a class="btn btn-lg btn-success" href="#" id="xianBtn" role="button">点我计数</a></p>
 		  </div>
 	  </div>
 	  
+	  <footer class="footer" align="center">
+	          <p>
+				  <span id="xianPV">页面访问量:</span>
+				    <br/>
+				  <span id="sitePV">站点访问量:</span>
+			  		<br/>
+				  <span>制作: <a href="https://github.com/goodbest">goodbest</a></span>
+			  </p>
+	  </footer>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

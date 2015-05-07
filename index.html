@@ -18,21 +18,18 @@
   <script src="js/jquery.min.js"></script>
   <script>
 	  $(document).ready(function(){
+		  $.post('http://count.io/vb/doufunao/indexPV+');
+		  $.post('http://count.io/vb/doufunao/sitePV+');
+		  
 		  $.getJSON('http://count.io/vb/doufunao/').done(function (data){
-			  var xianCnt;
-			  var tianCnt;
-			  if(data['counts'][0]['item']=='tian'){
-				  tianCnt=data['counts'][0]['count'];
-				  xianCnt=data['counts'][1]['count'];
+			  var cnt={};			  
+			  for (i = 0; i < data['counts'].length; i++){
+				  cnt[data['counts'][i]['item']]=data['counts'][i]['count']
 			  }
-			  else{
-				  tianCnt=data['counts'][1]['count'];
-				  xianCnt=data['counts'][0]['count'];
-			  }
-			    
-			  $("#tianBtn").append(' 现有'+tianCnt +'人次');
-			  $("#xianBtn").append(' 现有'+xianCnt +'人次');
-			//alert(data);
+			  $("#tianBtn").append(' \<small\>现'+cnt['tian'] +'人次\</small\>');
+			  $("#xianBtn").append(' \<small\>现'+cnt['xian'] +'人次\</small\>');
+			  $("#indexPV").append(' '+cnt['indexPV']);
+			  $("#sitePV").append(' '+cnt['sitePV']);
 	  });
   });
   </script>
@@ -43,9 +40,19 @@
 		  <div class="jumbotron">
 		  <h1>我是?豆腐脑党</h1>
 		  <p class="lead">豆腐脑应该是??的！做出你的选择！（排名按拼音序）</p>
-		  <p><a class="btn btn-lg btn-success" href="tian/" id="tianBtn" role="button">我是甜豆腐脑党</a></p>
-		  <p><a class="btn btn-lg btn-success" href="xian/" id="xianBtn" role="button">我是咸豆腐脑党</a></p>
+		  <p><a class="btn btn-lg btn-success" href="tian/" id="tianBtn" role="button">甜豆腐脑党</a></p>
+		  <p><a class="btn btn-lg btn-success" href="xian/" id="xianBtn" role="button">咸豆腐脑党</a></p>
 		  </div>
+		  
+		  <footer class="footer" align="center">
+		          <p>
+					  <span id="indexPV">页面访问量:</span>
+					    <br/>
+					  <span id="sitePV">站点访问量:</span>
+				  		<br/>
+					  <span>制作: <a href="https://github.com/goodbest">goodbest</a></span>
+				  </p>
+		  </footer>
 	  </div>
 	
 	<script>
